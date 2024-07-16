@@ -1,3 +1,4 @@
+
 import java.util.NoSuchElementException;
 
 class BSTree{
@@ -75,20 +76,22 @@ class BSTree{
 	BSTNode search(int value){
 		return search(value, root);
 	}
-	
+
 	BSTNode leftRotate(BSTNode node){
 		BSTNode rightChild = node.right;
 		node.right = rightChild.left;
 		rightChild.left = node;
 		return rightChild;
 	}
-	
+
 	BSTNode rightRotate(BSTNode node){
 		BSTNode leftChild = node.left;
 		node.left = leftChild.right;
 		leftChild.right = node;
 		return leftChild;
 	}
+
+	
 }
 
 class BSTNode{
@@ -120,9 +123,26 @@ public class BSTApplication {
 		System.out.println("Tree is balanced.");
 		
 		bst.insert(50);
+		System.out.println("Inserted 50");
 		bst.traversal("Pre");
-		System.out.println("Tree is unbalanced - Straight leg detected.");
+		System.out.println("Tree is unbalanced to right - Straight leg detected.");
 		bst.search(20).right = bst.leftRotate(bst.search(30));
+		System.out.println("Rotated 30 left");
+		bst.traversal("Pre");
+		System.out.println("Tree is balanced");
+
+		bst.insert(25);
+		bst.insert(28);
+		System.out.println("Inserted 25 and 28");
+		bst.traversal("Pre");
+		System.out.println("Tree is unbalanced to left - Dog leg detected.");
+		bst.search(30).left = bst.leftRotate(bst.search(25));
+		System.out.println("Rotated around 25 anticlockwise");
+		bst.traversal("Pre");
+		System.out.println("Rotated around 30 clockwise");
+		bst.search(40).left = bst.rightRotate(bst.search(30));
+		bst.traversal("Pre");
+		System.out.println("Tree is balanced.");
 	}
 
 }
